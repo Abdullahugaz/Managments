@@ -13,7 +13,10 @@ class SalesController extends Controller
     public function index()
     {
         $sales = Sale::with(['product', 'customer'])->latest()->get();
-        return Inertia::render('Sales/Index', ['sales' => $sales]);
+
+        return Inertia::render('Sales/Index', [
+            'sales' => $sales,
+        ]);
     }
 
     public function create()
@@ -25,33 +28,30 @@ class SalesController extends Controller
     }
 
     public function store(Request $request)
-{
-    $data = $request->validate([
-        'product_id' => 'required|exists:products,id',
-        'customer_id' => 'required|exists:customers,id',
-        'quantity' => 'required|integer|min:1',
-    ]);
+    {
+        $data = $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'customer_id' => 'required|exists:customers,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
 
-    // Get the single product
-    $product = Product::findOrFail($data['product_id']);
+        $product = Product::findOrFail($data['product_id']);
 
-    if ($product->stock < $data['quantity']) {
-        return back()->withErrors(['quantity' => 'Not enough stock']);
+        if ($product->stock < $data['quantity']) {
+            return back()->withErrors(['quantity' => 'Not enough stock available.']);
+        }
+
+        $sale = Sale::create([
+            'product_id' => $data['product_id'],
+            'customer_id' => $data['customer_id'],
+            'quantity' => $data['quantity'],
+            'total_price' => $product->price * $data['quantity'],
+        ]);
+
+        $product->decrement('stock', $data['quantity']);
+
+        return redirect()->route('sales.index')->with('success', 'Sale recorded successfully.');
     }
-
-    $sale = Sale::create([
-        'product_id' => $data['product_id'],
-        'customer_id' => $data['customer_id'],
-        'quantity' => $data['quantity'],
-        'total_price' => $product->price * $data['quantity'],
-    ]);
-
-    // Deduct stock
-    $product->decrement('stock', $data['quantity']);
-
-    return redirect()->route('sales.index')->with('success', 'Sale recorded.');
-}
-
 
     public function edit(Sale $sale)
     {
@@ -62,53 +62,91 @@ class SalesController extends Controller
         ]);
     }
 
-   public function update(Request $request, Sale $sale)
-{
-    $data = $request->validate([
-        'product_id' => 'required|exists:products,id',
-        'customer_id' => 'required|exists:customers,id',
-        'quantity' => 'required|integer|min:1',
-    ]);
+    public function update(Request $request, Sale $sale)
+    {
+        $data = $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'customer_id' => 'required|exists:customers,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
 
-    $oldProduct = Product::find($sale->product_id);
-    $newProduct = Product::findOrFail($data['product_id']);
+        $oldProduct = Product::find($sale->product_id);
+        $newProduct = Product::findOrFail($data['product_id']);
 
-    // Quantity difference and product check
-    if ($sale->product_id == $data['product_id']) {
-        // Same product, calculate difference in quantity
-        $quantityDiff = $data['quantity'] - $sale->quantity;
+        if ($sale->product_id == $data['product_id']) {
+            // Same product: check stock difference
+            $quantityDiff = $data['quantity'] - $sale->quantity;
 
-        if ($quantityDiff > 0) {
-            // Need to deduct extra stock from product
-            if ($newProduct->stock < $quantityDiff) {
-                return back()->withErrors(['quantity' => 'Not enough stock available.']);
+            if ($quantityDiff > 0) {
+                if ($newProduct->stock < $quantityDiff) {
+                    return back()->withErrors(['quantity' => 'Not enough stock available.']);
+                }
+                $newProduct->decrement('stock', $quantityDiff);
+            } elseif ($quantityDiff < 0) {
+                $newProduct->increment('stock', abs($quantityDiff));
             }
-            $newProduct->decrement('stock', $quantityDiff);
-        } elseif ($quantityDiff < 0) {
-            // Add back stock because quantity decreased
-            $newProduct->increment('stock', abs($quantityDiff));
+        } else {
+            // Different product: revert old stock and check new
+            if ($oldProduct) {
+                $oldProduct->increment('stock', $sale->quantity);
+            }
+
+            if ($newProduct->stock < $data['quantity']) {
+                return back()->withErrors(['quantity' => 'Not enough stock available for the selected product.']);
+            }
+
+            $newProduct->decrement('stock', $data['quantity']);
         }
-    } else {
-        // Different product selected
-        // Restore stock for old product
-        if ($oldProduct) {
-            $oldProduct->increment('stock', $sale->quantity);
-        }
-        // Deduct stock for new product
-        if ($newProduct->stock < $data['quantity']) {
-            return back()->withErrors(['quantity' => 'Not enough stock available for the new product.']);
-        }
-        $newProduct->decrement('stock', $data['quantity']);
+
+        $sale->update([
+            'product_id' => $data['product_id'],
+            'customer_id' => $data['customer_id'],
+            'quantity' => $data['quantity'],
+            'total_price' => $newProduct->price * $data['quantity'],
+        ]);
+
+        return redirect()->route('sales.index')->with('success', 'Sale updated successfully.');
     }
 
-    // Update sale record
-    $sale->update([
-        'product_id' => $data['product_id'],
-        'customer_id' => $data['customer_id'],
-        'quantity' => $data['quantity'],
-        'total_price' => $newProduct->price * $data['quantity'],
-    ]);
+    public function report(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $customerId = $request->input('customer_id');
+        $productId = $request->input('product_id');
 
-    return redirect()->route('sales.index')->with('success', 'Sale updated successfully.');
-}
+        $query = Sale::with(['customer', 'product'])->latest();
+
+        if ($startDate) {
+            $query->whereDate('created_at', '>=', $startDate);
+        }
+
+        if ($endDate) {
+            $query->whereDate('created_at', '<=', $endDate);
+        }
+
+        if ($customerId) {
+            $query->where('customer_id', $customerId);
+        }
+
+        if ($productId) {
+            $query->where('product_id', $productId);
+        }
+
+        $sales = $query->get();
+        $totalSales = $sales->sum('total_price');
+
+        return Inertia::render('Sales/Report', [
+            'sales' => $sales,
+            'totalSales' => $totalSales,
+            'customers' => Customer::all(),
+            'products' => Product::all(),
+            'filters' => [
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+                'customer_id' => $customerId,
+                'product_id' => $productId,
+            ],
+        ]);
+    }
 }

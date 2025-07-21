@@ -37,6 +37,7 @@ Route::get('/sales/create', [SalesController::class, 'create'])->name('sales.cre
 Route::post('/sales', [SalesController::class, 'store'])->name('sales.store');
 Route::get('/sales/{sale}/edit', [SalesController::class, 'edit'])->name('sales.edit');
 Route::put('/sales/{sale}', [SalesController::class, 'update'])->name('sales.update');
+Route::get('/sales/report', [SalesController::class, 'report'])->name('sales.report');
 
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');

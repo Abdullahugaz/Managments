@@ -44,7 +44,7 @@ const mainNavItems: NavItem[] = [
     // 🔽 Add these report links
     {
         title: 'Sales Report',
-        href: '/reports/sales',
+        href: '/sales/report',
         icon: Folder,
     },
     {
