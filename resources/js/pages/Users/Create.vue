@@ -27,12 +27,14 @@
         class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
-      <input
-        v-model="form.password"
-        type="password"
-        placeholder="Password"
-        class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
+     <input
+  v-model="form.password"
+  type="password"
+  placeholder="Password"
+  required
+  class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+/>
+
 
       <button
         type="submit"

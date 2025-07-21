@@ -47,11 +47,11 @@ const mainNavItems: NavItem[] = [
         href: '/sales/report',
         icon: Folder,
     },
-    {
-        title: 'Customer Report',
-        href: '/reports/customers',
-        icon: BookOpen,
-    },
+    // {
+    //     title: 'Customer Report',
+    //     href: '/reports/customers',
+    //     icon: BookOpen,
+    // },
 ];
 
 
