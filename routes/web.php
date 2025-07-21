@@ -7,9 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SalesController;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('home');
+Route::redirect('/', '/login')->name('home');
+
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
