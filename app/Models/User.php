@@ -10,13 +10,12 @@ class User extends Authenticatable
     use HasFactory;
 
     // Fillable fields for mass assignment
-    protected $fillable = [
+     protected $fillable = [
         'name',
         'email',
         'phone',
-        // add 'password' here if you want auth
+        'password',
     ];
-
     // Hide attributes when serialized (optional)
     protected $hidden = [
         // 'password',
