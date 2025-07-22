@@ -70,4 +70,36 @@ class CustomerController extends Controller
 
         return redirect()->route('customers.index')->with('success', 'Customer updated.');
     }
+
+    /**
+     * Show the customer report.
+     */
+    public function report(Request $request): Response
+    {
+        $query = Customer::query()
+            ->withCount(['sales as total_orders'])
+            ->withSum('sales as total_spent', 'total_price');
+
+        // Filters
+        if ($request->start_date) {
+            $query->whereHas('sales', function ($q) use ($request) {
+                $q->whereDate('created_at', '>=', $request->start_date);
+            });
+        }
+
+        if ($request->end_date) {
+            $query->whereHas('sales', function ($q) use ($request) {
+                $q->whereDate('created_at', '<=', $request->end_date);
+            });
+        }
+
+        $customers = $query->get();
+        $totalSpent = $customers->sum('total_spent');
+
+        return Inertia::render('Customers/Report', [
+            'customers' => $customers,
+            'filters' => $request->only(['start_date', 'end_date']),
+            'totalSpent' => $totalSpent,
+        ]);
+    }
 }
