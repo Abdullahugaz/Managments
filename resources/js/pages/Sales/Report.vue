@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <Head title="Sales Report" />
-    <div class="p-6 max-w-5xl mx-auto bg-white rounded shadow" id="printable-area">
+    <div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-white" id="printable-area">
       <h1 class="text-xl font-semibold mb-4">Sales Report</h1>
 
       <!-- Filters -->
@@ -38,7 +38,7 @@
       <!-- Print Button -->
       <button
         @click="printReport"
-        class="mb-4 bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 print:hidden"
+         class="bg-white text-[#7A5FFF] font-semibold px-5 py-2 rounded-full shadow hover:bg-[#fbe6ff] transition print:hidden"
       >
         Print Report
       </button>

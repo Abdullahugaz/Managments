@@ -49,7 +49,7 @@ const submit = () => {
 
 <template>
   <Head title="New Sale" />
-  <div class="p-6">
+ <div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-white">
       <div class="flex justify-between items-center mb-4">
     <h2 class="text-xl font-bold mb-4">New Sale</h2>
 </div>
@@ -91,7 +91,7 @@ const submit = () => {
       </div>
 
       <!-- Submit -->
-      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Submit Sale</button>
+      <button type="submit"  class="bg-white text-[#7A5FFF] font-semibold px-5 py-2 rounded-full shadow hover:bg-[#fbe6ff] transition">Submit Sale</button>
     </form>
   </div>
 </template>

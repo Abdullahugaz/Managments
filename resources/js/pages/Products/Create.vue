@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <Head title="Create Product" />
-    <div class="p-6">
+    <div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-white">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-semibold">Create Product</h2>
       </div>
@@ -40,7 +40,7 @@
 
         <button
           type="submit"
-          class="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition"
+          class="bg-white text-[#7A5FFF] font-semibold px-5 py-2 rounded-full shadow hover:bg-[#fbe6ff] transition"
         >
           Create
         </button>

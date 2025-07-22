@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <Head title="Edit Customer" />
-    <div class="w-full px-6 py-4 bg-white rounded shadow-lg min-h-[300px]">
+    <div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-white">
       <h2 class="text-2xl font-semibold mb-6">Edit Customer</h2>
 
       <form @submit.prevent="submit" class="space-y-6 max-w-none">
@@ -40,7 +40,7 @@
 
         <button
           type="submit"
-          class="bg-green-600 text-white px-6 py-2 rounded text-lg font-semibold hover:bg-green-700 transition mt-6"
+ class="bg-white text-[#7A5FFF] font-semibold px-5 py-2 rounded-full shadow hover:bg-[#fbe6ff] transition"
         >
           Update
         </button>
