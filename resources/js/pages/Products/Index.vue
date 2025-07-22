@@ -37,7 +37,7 @@
             <td class="p-2">
               <Link
                 :href="route('products.edit', product.id)"
-                class="text-blue-600 hover:underline"
+                class=" text-[#e10ec2] font-semibold px-5 py-2 rounded-full shadow hover:bg-[#fbe6ff] transition hover:underline"
               >
                 Edit
               </Link>

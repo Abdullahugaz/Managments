@@ -29,7 +29,7 @@
           </select>
         </div>
         <div class="self-end">
-          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          <button type="submit" class="bg-white text-[#7A5FFF] font-semibold px-5 py-2 rounded-full shadow hover:bg-[#fbe6ff] transition">
             Filter
           </button>
         </div>
@@ -48,7 +48,7 @@
 
       <!-- Sales Table -->
       <table class="w-full border rounded shadow">
-        <thead class="bg-gray-200">
+        <thead class="bg-[#1A1F3C] text-white">
           <tr>
             <th class="p-2 text-left">Date</th>
             <th class="p-2 text-left">Customer</th>
@@ -65,7 +65,7 @@
             <td class="p-2">{{ sale.quantity }}</td>
             <td class="p-2">${{ formatPrice(sale.total_price) }}</td>
           </tr>
-          <tr class="font-semibold border-t bg-gray-100">
+          <tr class="bg-[#1A1F3C] text-white">
             <td colspan="4" class="p-2 text-right">Total Sales:</td>
             <td class="p-2">${{ formatPrice(totalSales) }}</td>
           </tr>

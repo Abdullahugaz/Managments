@@ -3,10 +3,18 @@ import AppLogoIcon from '@/components/AppLogoIcon.vue';
 </script>
 
 <template>
-    <div class="flex aspect-square size-8 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
-        <AppLogoIcon class="size-5 fill-current text-white dark:text-black" />
+  <div class="flex items-center">
+    <!-- Icon background same as sidebar bg -->
+    <div
+      class="flex aspect-square w-8 h-8 items-center justify-center rounded-md"
+      style="background-color: #fff;"
+    >
+      <AppLogoIcon class="w-5 h-5 fill-current text-white" />
     </div>
-    <div class="ml-1 grid flex-1 text-left text-sm">
-        <span class="mb-0.5 truncate leading-tight font-semibold">Product Management</span>
+
+    <!-- Text label with white color -->
+    <div class="ml-2 flex-1 text-left text-sm text-black">
+      <span class="mb-0.5 truncate leading-tight font-semibold">Product Management</span>
     </div>
+  </div>
 </template>

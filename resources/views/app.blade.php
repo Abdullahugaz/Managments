@@ -31,6 +31,8 @@
         </style>
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
 
         <link rel="icon" href="/favicon.ico" sizes="any">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
