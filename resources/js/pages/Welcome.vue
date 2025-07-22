@@ -3,7 +3,8 @@ import { Head, Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="Welcome">
+    <div>
+            <Head title="Welcome">
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
@@ -783,5 +784,6 @@ import { Head, Link } from '@inertiajs/vue3';
             </main>
         </div>
         <div class="hidden h-14.5 lg:block"></div>
+    </div>
     </div>
 </template>
