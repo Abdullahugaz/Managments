@@ -26,68 +26,69 @@ const submit = () => {
     });
 };
 </script>
-
 <template>
-    <AuthBase title="Log in to your account" description="Enter your email and password below to log in">
+  <div class="min-h-screen grid md:grid-cols-2 bg-white">
+    <!-- Left Side: Logo or Illustration -->
+    <div class="hidden md:flex items-center justify-center bg-gradient-to-br from-[#7A5FFF] to-[#FF57B2] text-white p-10">
+      <img src="/images/yiksi.png" alt="Logo" class="w-3/4 max-w-sm" />
+    </div>
+
+    <!-- Right Side: Login Form -->
+    <div class="flex items-center justify-center p-6">
+      <div class="w-full max-w-md">
         <Head title="Log in" />
+        <h2 class="text-3xl font-bold text-center mb-2">Welcome Back</h2>
+        <p class="text-center text-gray-500 mb-6">Enter your email and password to sign in</p>
 
         <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
-            {{ status }}
+          {{ status }}
         </div>
 
-        <form @submit.prevent="submit" class="flex flex-col gap-6">
-            <div class="grid gap-6">
-                <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
-                    <Input
-                        id="email"
-                        type="email"
-                        required
-                        autofocus
-                        :tabindex="1"
-                        autocomplete="email"
-                        v-model="form.email"
-                        placeholder="email@example.com"
-                    />
-                    <InputError :message="form.errors.email" />
-                </div>
+        <form @submit.prevent="submit" class="space-y-6">
+          <div>
+            <Label for="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              required
+              v-model="form.email"
+              autocomplete="email"
+              class="mt-1"
+              placeholder="you@example.com"
+            />
+            <InputError :message="form.errors.email" />
+          </div>
 
-                <div class="grid gap-2">
-                    <div class="flex items-center justify-between">
-                        <Label for="password">Password</Label>
-                        <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm" :tabindex="5">
-                            Forgot password?
-                        </TextLink>
-                    </div>
-                    <Input
-                        id="password"
-                        type="password"
-                        required
-                        :tabindex="2"
-                        autocomplete="current-password"
-                        v-model="form.password"
-                        placeholder="Password"
-                    />
-                    <InputError :message="form.errors.password" />
-                </div>
+          <div>
+            <Label for="password" class="flex justify-between items-center">
+              Password
+              <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm text-blue-600 hover:underline">
+                Forgot?
+              </TextLink>
+            </Label>
+            <Input
+              id="password"
+              type="password"
+              required
+              v-model="form.password"
+              autocomplete="current-password"
+              class="mt-1"
+              placeholder="••••••••"
+            />
+            <InputError :message="form.errors.password" />
+          </div>
 
-                <div class="flex items-center justify-between">
-                    <Label for="remember" class="flex items-center space-x-3">
-                        <Checkbox id="remember" v-model="form.remember" :tabindex="3" />
-                        <span>Remember me</span>
-                    </Label>
-                </div>
+          <div class="flex items-center space-x-2">
+            <Checkbox id="remember" v-model="form.remember" />
+            <Label for="remember">Remember me</Label>
+          </div>
 
-                <Button type="submit" class="mt-4 w-full" :tabindex="4" :disabled="form.processing">
-                    <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                    Log in
-                </Button>
-            </div>
-
-            <!-- <div class="text-center text-sm text-muted-foreground">
-                Don't have an account?
-                <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
-            </div> -->
+          <Button class="w-full" :disabled="form.processing">
+            <LoaderCircle v-if="form.processing" class="w-4 h-4 animate-spin mr-2" />
+            Log in
+          </Button>
         </form>
-    </AuthBase>
+      </div>
+    </div>
+  </div>
 </template>

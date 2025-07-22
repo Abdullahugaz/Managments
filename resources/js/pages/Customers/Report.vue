@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <Head title="Customer Report" />
-    <div class="p-6 max-w-5xl mx-auto bg-white rounded shadow" id="printable-area">
+    <div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-white" id="printable-area">
       <h1 class="text-xl font-semibold mb-4">Customer Report</h1>
 
       <!-- Filters -->
@@ -15,7 +15,7 @@
           <input type="date" v-model="filters.end_date" class="border p-2 rounded w-full" />
         </div>
         <div class="self-end">
-          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          <button type="submit" class="bg-white text-[#7A5FFF] font-semibold px-5 py-2 rounded-full shadow hover:bg-[#fbe6ff] transition">
             Filter
           </button>
         </div>
@@ -34,7 +34,7 @@
 
       <!-- Customer Table -->
       <table class="w-full border rounded shadow">
-        <thead class="bg-gray-200">
+        <thead class="bg-[#1A1F3C] text-white">
           <tr>
             <th class="p-2 text-left">Name</th>
             <th class="p-2 text-left">Email</th>
@@ -51,7 +51,7 @@
             <td class="p-2">{{ customer.total_orders }}</td>
             <td class="p-2">${{ formatPrice(customer.total_spent) }}</td>
           </tr>
-          <tr class="font-semibold border-t bg-gray-100">
+          <tr class="bg-[#1A1F3C] text-white">
             <td colspan="4" class="p-2 text-right">Total Spent (All Customers):</td>
             <td class="p-2">${{ formatPrice(totalSpent) }}</td>
           </tr>

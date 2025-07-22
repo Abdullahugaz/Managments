@@ -1,27 +1,43 @@
 <script setup lang="ts">
-import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import {
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem
+} from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 
 defineProps<{
-    items: NavItem[];
+  items: NavItem[];
 }>();
 
 const page = usePage();
 </script>
 
 <template>
-    <SidebarGroup class="px-2 py-0">
-        <SidebarGroupLabel>Platform</SidebarGroupLabel>
-        <SidebarMenu>
-            <SidebarMenuItem v-for="item in items" :key="item.title">
-                <SidebarMenuButton as-child :is-active="item.href === page.url" :tooltip="item.title">
-                    <Link :href="item.href">
-                        <component :is="item.icon" />
-                        <span>{{ item.title }}</span>
-                    </Link>
-                </SidebarMenuButton>
-            </SidebarMenuItem>
-        </SidebarMenu>
-    </SidebarGroup>
+  <SidebarGroup class="px-2 py-1">
+    <SidebarGroupLabel class="text-sm text-white/70 uppercase tracking-wide mb-1">Platform</SidebarGroupLabel>
+
+    <SidebarMenu>
+      <SidebarMenuItem
+        v-for="item in items"
+        :key="item.href"
+        class="rounded-lg"
+      >
+        <SidebarMenuButton
+          as-child
+          :is-active="page.url.startsWith(item.href)"
+          :tooltip="item.title"
+          class="group w-full px-4 py-2 flex items-center gap-3 text-white hover:bg-pink-600 hover:text-white transition rounded-lg"
+        >
+          <Link :href="item.href" class="flex items-center gap-3">
+            <component :is="item.icon" class="w-5 h-5" />
+            <span class="text-sm">{{ item.title }}</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    </SidebarMenu>
+  </SidebarGroup>
 </template>

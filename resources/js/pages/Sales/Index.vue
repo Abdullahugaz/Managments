@@ -26,7 +26,7 @@
               <td class="p-2">{{ sale.quantity }}</td>
               <td class="p-2">${{ sale.total_price }}</td>
               <td class="p-2">
-                <Link :href="`/sales/${sale.id}/edit`" class="text-blue-600 hover:underline">Edit</Link>
+                <Link :href="`/sales/${sale.id}/edit`" class=" text-[#e10ec2] font-semibold px-5 py-2 rounded-full shadow hover:bg-[#fbe6ff] transition hover:underline">Edit</Link>
               </td>
             </tr>
           </tbody>
