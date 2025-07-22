@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <Head title="Create Customer" />
-    <div class="w-full p-6 bg-white rounded shadow-lg">
+    <div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-white">
       <h2 class="text-xl font-semibold mb-6">New Customer</h2>
 
       <form @submit.prevent="submit" class="space-y-6">
@@ -38,7 +38,7 @@
 
         <button
           type="submit"
-          class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+          class="bg-white text-[#7A5FFF] font-semibold px-5 py-2 rounded-full shadow hover:bg-[#fbe6ff] transition"
         >
           Create
         </button>

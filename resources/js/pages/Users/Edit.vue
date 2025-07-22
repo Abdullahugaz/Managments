@@ -2,7 +2,7 @@
   <AppLayout>
     <Head title="Edit User" />
 
-    <div class="p-6 max-w-4xl mx-auto">
+ <div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-white">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-semibold mb-6">Edit User</h2>
       </div>
@@ -50,10 +50,12 @@
 
         <div>
           <button
-            type="submit"
-            class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"
+          
+            type="submit" 
+            class="bg-white text-[#7A5FFF] font-semibold px-5 py-2 rounded-full shadow hover:bg-[#fbe6ff] transition"
             :disabled="form.processing"
-          >
+          
+            >
             Update
           </button>
         </div>
