@@ -20,6 +20,8 @@ Route::get('/customers/create', [CustomerController::class, 'create'])->name('cu
 Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
 Route::get('/customers/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
 Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update');
+Route::get('/customers/report', [CustomerController::class, 'report'])->name('customers.report');
+
 
 
 
