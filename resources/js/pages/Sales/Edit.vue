@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <Head title="Edit Sale" />
-    <div class="p-6">
+    <div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-white">
       <div class="flex justify-between items-center mb-4">
       <h1 class="text-xl font-semibold mb-4">Edit Sale</h1>
 </div>
@@ -42,7 +42,7 @@
 
         <button
           type="submit"
-          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          class="bg-white text-[#7A5FFF] font-semibold px-5 py-2 rounded-full shadow hover:bg-[#fbe6ff] transition"
           :disabled="form.processing"
         >
           Update Sale

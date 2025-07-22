@@ -1,19 +1,19 @@
 <template>
   <AppLayout>
     <Head title="Products" />
-    <div class="p-6">
-      <div class="flex justify-between items-center mb-4">
+   <div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-white">
+      <div class="flex justify-between items-center  mb-4">
         <h1 class="text-2xl font-bold">Products</h1>
         <Link
           :href="route('products.create')"
-          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+           class="bg-white text-[#7A5FFF] font-semibold px-5 py-2 rounded-full shadow hover:bg-[#fbe6ff] transition"
         >
           Add New Product
         </Link>
       </div>
 
-      <table class="w-full border bg-white rounded shadow">
-        <thead class="bg-gray-200">
+     <table class="w-full table-auto text-white">
+  <thead class="bg-[#1A1F3C] text-white">
           <tr>
             <th class="p-2 text-left">#</th>
             <th class="p-2 text-left">Name</th>
