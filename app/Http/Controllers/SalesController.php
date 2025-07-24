@@ -74,7 +74,6 @@ class SalesController extends Controller
         $newProduct = Product::findOrFail($data['product_id']);
 
         if ($sale->product_id == $data['product_id']) {
-            // Same product: check stock difference
             $quantityDiff = $data['quantity'] - $sale->quantity;
 
             if ($quantityDiff > 0) {
@@ -86,7 +85,6 @@ class SalesController extends Controller
                 $newProduct->increment('stock', abs($quantityDiff));
             }
         } else {
-            // Different product: revert old stock and check new
             if ($oldProduct) {
                 $oldProduct->increment('stock', $sale->quantity);
             }

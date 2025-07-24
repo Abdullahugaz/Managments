@@ -72,6 +72,16 @@ class CustomerController extends Controller
     }
 
     /**
+     * Remove the specified customer from storage.
+     */
+    public function destroy(Customer $customer)
+    {
+        $customer->delete();
+
+        return redirect()->route('customers.index')->with('success', 'Customer deleted successfully.');
+    }
+
+    /**
      * Show the customer report.
      */
     public function report(Request $request): Response

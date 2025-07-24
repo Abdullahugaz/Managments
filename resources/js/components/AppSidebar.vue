@@ -13,6 +13,7 @@ import {
     Users, ShoppingCart, Boxes, UserPlus
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
+import Profile from '@/pages/settings/Profile.vue';
 
 const mainNavItems: NavItem[] = [
     {
@@ -40,24 +41,23 @@ const mainNavItems: NavItem[] = [
         href: '/users',
         icon: UserPlus,
     },
-
-    // 🔽 Add these report links
     {
         title: 'Sales Report',
         href: '/sales/report',
         icon: Folder,
     },
+    {
+        title: 'Customer Report',
+        href: '/customers/report',
+        icon: BookOpen,
+    },
     // {
-    //     title: 'Customer Report',
-    //     href: '/reports/customers',
-    //     icon: BookOpen,
-    // },
+    //     title: 'customer Profile',
+    //     href: '/customer/profile',
+    //     icon: Folder,
+    // }
 ];
-
-
-
 </script>
-
 
 <template>
     <Sidebar collapsible="icon" variant="inset">
@@ -78,9 +78,8 @@ const mainNavItems: NavItem[] = [
         </SidebarContent>
 
         <SidebarFooter>
-    <NavUser />
-</SidebarFooter>
-
+            <NavUser />
+        </SidebarFooter>
     </Sidebar>
     <slot />
 </template>

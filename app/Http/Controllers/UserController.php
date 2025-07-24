@@ -45,6 +45,13 @@ class UserController extends Controller
         ]);
     }
 
+    public function destroy(User $user)
+{
+    $user->delete();
+    return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+}
+
+
     public function update(Request $request, User $user)
 {
     $data = $request->validate([
