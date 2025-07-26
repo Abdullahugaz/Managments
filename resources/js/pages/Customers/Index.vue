@@ -4,8 +4,11 @@
 
     <div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-white">
       <!-- Flash success message -->
-      <div v-if="$page.props.flash?.success" class="mb-4 p-4 bg-green-100 text-green-800 rounded">
-        {{ $page.props.flash.success }}
+      <div
+        v-if="flash.success"
+        class="mb-4 p-4 bg-green-100 text-green-800 rounded"
+      >
+        {{ flash.success }}
       </div>
 
       <!-- Header -->
@@ -72,7 +75,10 @@
           </svg>
           <h2 class="text-lg font-semibold">Confirm Deletion</h2>
         </div>
-        <p class="mb-6">Ma hubtaa inaad tirtirayso <span class="font-semibold text-red-600">{{ selectedCustomer?.name }}</span>?</p>
+        <p class="mb-6" v-if="selectedCustomer">
+          Ma hubtaa inaad tirtirayso
+          <span class="font-semibold text-red-600">{{ selectedCustomer.name }}</span>?
+        </p>
         <div class="flex justify-end space-x-3">
           <button @click="showModal = false" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
             Cancel
@@ -87,9 +93,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Link, Head, router } from '@inertiajs/vue3'
+import { ref, computed } from 'vue'
+import { usePage, router, Link, Head } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue'
+
+// Flash message (safe access)
+const flash = computed(() => usePage().props.flash || {})
 
 // Props
 defineProps<{
@@ -98,17 +107,20 @@ defineProps<{
     name: string;
     email: string;
     phone: string;
-  }>;
+  }>
 }>()
 
+// Modal state
 const showModal = ref(false)
 const selectedCustomer = ref<{ id: number; name: string } | null>(null)
 
+// Open modal
 function openDeleteModal(customer: { id: number; name: string }) {
   selectedCustomer.value = customer
   showModal.value = true
 }
 
+// Confirm delete
 function confirmDelete() {
   if (selectedCustomer.value) {
     router.delete(`/customers/${selectedCustomer.value.id}`, {
