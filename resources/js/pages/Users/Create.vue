@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <Head title="Create User" />
-<div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-white">
+<div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-black">
       <div class="flex justify-between items-center mb-4">
     <h2 class="text-2xl font-semibold mb-6">Create User</h2>
 </div>
