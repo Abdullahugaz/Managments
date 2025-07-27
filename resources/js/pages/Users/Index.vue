@@ -16,7 +16,7 @@
             <th class="p-2 text-left">Name</th>
             <th class="p-2 text-left">Email</th>
             <th class="p-2 text-left">Phone</th>
-            <th class="p-2 text-left">Password (hashed)</th>
+            <!-- <th class="p-2 text-left">Password (hashed)</th> -->
             <th class="p-2 text-left">Actions</th>
           </tr>
         </thead>
@@ -26,7 +26,7 @@
             <td class="p-2">{{ user.name }}</td>
             <td class="p-2">{{ user.email }}</td>
             <td class="p-2">{{ user.phone }}</td>
-            <td class="p-2 font-mono text-xs break-all">{{ user.password }}</td>
+            <!-- <td class="p-2 font-mono text-xs break-all">{{ user.password }}</td> -->
             <td class="p-2">
               <Link
                 :href="route('users.edit', user.id)"

@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <Head title="Create Customer" />
-    <div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-white">
+    <div class="p-6 min-h-screen bg-gradient-to-br from-[#e45fed] to-[#5739ed] text-black">
       <h2 class="text-xl font-semibold mb-6">New Customer</h2>
 
       <form @submit.prevent="submit" class="space-y-6">
