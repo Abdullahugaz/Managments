@@ -34,8 +34,13 @@ const submit = () => {
     </div>
 
     <!-- Right Side: Login Form -->
-    <div class="flex items-center justify-center p-6">
+    <div class="flex items-center justify-center   p-6">
+      
       <div class="w-full max-w-md">
+       <div class="flex items-center justify-center h-20">
+  <img src="/images/yiksi.png" alt="Logo" class="w-30 h-30" />
+</div>
+
         <Head title="Log in" />
         <h2 class="text-3xl font-bold text-center mb-2">Welcome Back</h2>
         <p class="text-center text-gray-500 mb-6">Enter your email and password to sign in</p>
@@ -83,7 +88,7 @@ const submit = () => {
             <Label for="remember">Remember me</Label>
           </div>
 
-          <Button class="w-full" :disabled="form.processing">
+          <Button class="w-full bg-pink-600 •	hover:bg-blue-900 " :disabled="form.processing">
             <LoaderCircle v-if="form.processing" class="w-4 h-4 animate-spin mr-2" />
             Log in
           </Button>
