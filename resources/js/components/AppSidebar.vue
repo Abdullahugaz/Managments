@@ -42,12 +42,12 @@ const mainNavItems: NavItem[] = [
   },
   {
     title: 'Sales Report',
-    href: '/sales/report',
+    href: '/reports/reportsales',
     icon: Folder,
   },
   {
     title: 'Customer Report',
-    href: '/customers/report',
+    href: '/reports/report',
     icon: BookOpen,
   },
 ];

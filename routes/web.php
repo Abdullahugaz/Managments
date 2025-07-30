@@ -20,7 +20,7 @@ Route::get('/customers/create', [CustomerController::class, 'create'])->name('cu
 Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
 Route::get('/customers/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
 Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update');
-Route::get('/customers/report', [CustomerController::class, 'report'])->name('customers.report');
+Route::get('/reports/report', [CustomerController::class, 'report'])->name('customers.report');
 // routes/web.php
 Route::delete('/customers/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 
@@ -40,7 +40,7 @@ Route::get('/sales/create', [SalesController::class, 'create'])->name('sales.cre
 Route::post('/sales', [SalesController::class, 'store'])->name('sales.store');
 Route::get('/sales/{sale}/edit', [SalesController::class, 'edit'])->name('sales.edit');
 Route::put('/sales/{sale}', [SalesController::class, 'update'])->name('sales.update');
-Route::get('/sales/report', [SalesController::class, 'report'])->name('sales.report');
+Route::get('/reports/reportsales', [SalesController::class, 'report'])->name('sales.report');
 
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');

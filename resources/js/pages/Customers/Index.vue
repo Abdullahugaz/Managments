@@ -14,46 +14,40 @@
         </Link>
       </div>
 
-      <!-- Table -->
-      <div class="overflow-auto rounded-xl shadow-lg bg-[#1A0D80]/30 backdrop-blur p-4">
-        <table class="w-full table-auto text-white">
-          <thead class="text-left border-b border-white/20">
-            <tr>
-              <th class="p-3">#</th>
-              <th class="p-3">Name</th>
-              <th class="p-3">Email</th>
-              <th class="p-3">Phone</th>
-              <th class="p-3">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(customer, index) in customers"
-              :key="customer.id"
-              class="hover:bg-white/10 transition"
+      <!-- DataTable -->
+      <DataTable :items="customers" :columns="columns">
+        <template #actions="{ item }">
+          <template v-if="item.status === 'draft'">
+            <Link
+              :href="`/customers/${item.id}/edit`"
+              class="text-[#EC87F3] hover:underline"
             >
-              <td class="p-3">{{ index + 1 }}</td>
-              <td class="p-3">{{ customer.name }}</td>
-              <td class="p-3">{{ customer.email }}</td>
-              <td class="p-3">{{ customer.phone }}</td>
-              <td class="p-3 flex gap-4">
-                <Link
-                  :href="`/customers/${customer.id}/edit`"
-                  class="text-[#EC87F3] hover:underline"
-                >
-                  Edit
-                </Link>
-                <button
-                  @click="openDeleteModal(customer.id)"
-                  class="text-red-300 hover:underline"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+              Edit
+            </Link>
+            <button
+              @click="openDeleteModal(item.id)"
+              class="text-red-300 hover:underline ml-4"
+            >
+              Delete
+            </button>
+          </template>
+          <template v-else>
+            <Link
+              :href="`/customers/${item.id}/edit`"
+              class="text-blue-300 hover:underline"
+            >
+     <img
+  src="/images/view-icon.png"
+  alt="View"
+  class="w-10 h-10 mr-2 invert"
+/>
+
+ 
+  
+            </Link>
+          </template>
+        </template>
+      </DataTable>
     </div>
 
     <!-- Delete Confirmation Modal -->
@@ -87,34 +81,42 @@
 import { ref } from 'vue'
 import { router, Link, Head } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue'
+import DataTable from '@/components/DataTable.vue'
 
-// Props from server
 defineProps<{
   customers: Array<{
     id: number
     name: string
     email: string
     phone: string
+    status: string
+    date: string
   }>
 }>()
 
-// Modal state
 const showModal = ref(false)
 const deletingId = ref<number | null>(null)
 
-// Open modal
+const columns = [
+  { key: 'id', label: '#' },
+  { key: 'name', label: 'Name' },
+  { key: 'email', label: 'Email' },
+  { key: 'phone', label: 'Phone' },
+  { key: 'status', label: 'Status' },
+  { key: 'date', label: 'Date' },
+  { key: 'actions', label: 'Actions' },
+]
+
 function openDeleteModal(id: number) {
   deletingId.value = id
   showModal.value = true
 }
 
-// Cancel delete
 function cancelDelete() {
   showModal.value = false
   deletingId.value = null
 }
 
-// Confirm delete
 function confirmDelete() {
   if (deletingId.value !== null) {
     router.delete(`/customers/${deletingId.value}`, {

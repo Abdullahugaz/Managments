@@ -14,7 +14,8 @@ class CustomerController extends Controller
      */
     public function index(): Response
     {
-        $customers = Customer::latest()->get();
+        // Include status and date in selection for the frontend table
+        $customers = Customer::latest()->get(['id', 'name', 'email', 'phone', 'status', 'date']);
 
         return Inertia::render('Customers/Index', [
             'customers' => $customers,
@@ -35,9 +36,11 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'  => 'required|string|max:255',
-            'email' => 'required|email|unique:customers,email',
-            'phone' => 'required|string|max:20',
+            'name'   => 'required|string|max:255',
+            'email'  => 'required|email|unique:customers,email',
+            'phone'  => 'required|string|max:20',
+            'status' => 'required|in:draft,submit',
+            'date'   => 'required|date',
         ]);
 
         Customer::create($validated);
@@ -61,9 +64,11 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         $validated = $request->validate([
-            'name'  => 'required|string|max:255',
-            'email' => 'required|email|unique:customers,email,' . $customer->id,
-            'phone' => 'required|string|max:20',
+            'name'   => 'required|string|max:255',
+            'email'  => 'required|email|unique:customers,email,' . $customer->id,
+            'phone'  => 'required|string|max:20',
+            'status' => 'required|in:draft,submit',
+            'date'   => 'required|date',
         ]);
 
         $customer->update($validated);
@@ -71,13 +76,17 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->with('success', 'Customer updated.');
     }
 
+    /**
+     * Remove the specified customer from storage.
+     *
+     * @param int $id
+     */
+    public function destroy(int $id)
+    {
+        Customer::findOrFail($id)->delete();
 
-    public function destroy($id)
-{
-    Customer::findOrFail($id)->delete();
-
-    return redirect()->route('customers.index')->with('success', 'Customer deleted.');
-}
+        return redirect()->route('customers.index')->with('success', 'Customer deleted.');
+    }
 
     /**
      * Show the customer report.
@@ -104,7 +113,7 @@ class CustomerController extends Controller
         $customers = $query->get();
         $totalSpent = $customers->sum('total_spent');
 
-        return Inertia::render('Customers/Report', [
+        return Inertia::render('reports/Report', [
             'customers' => $customers,
             'filters' => $request->only(['start_date', 'end_date']),
             'totalSpent' => $totalSpent,
