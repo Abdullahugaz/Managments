@@ -136,7 +136,7 @@ class SalesController extends Controller
         $sales = $query->get();
         $totalSales = $sales->sum('total_price');
 
-        return Inertia::render('Sales/Report', [
+        return Inertia::render('reports/Reportsales', [
             'sales' => $sales,
             'totalSales' => $totalSales,
             'customers' => Customer::all(),
